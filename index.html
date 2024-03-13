@@ -30,10 +30,17 @@
             font-weight: 300;
         }
 
-        table, th, td {
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table,
+        th,
+        td {
             border-collapse: collapse;
         }
-        
+
         th {
             text-align: left;
             border-bottom: 2px solid var(--color);
@@ -42,86 +49,135 @@
         tr:not(:last-of-type) td {
             border-bottom: 1px solid var(--color);
         }
-
-        th, td {
-            padding-right: 1rem;
-        }
-
-        @media screen and (max-width:760px) {
-            table {
-                width: 100%;
-            }
-        }
-    </style> 
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Dumpening</title>
 </head>
 
 <body>
     <h1>The Dumpening</h1>
+    <em>How much will it dump? 💩</em>
+    <h2>Stats</h2>
+    <table>
+        <tbody>
+            <tr>
+                <td>Average</td>
+                <td id="avg"></td>
+            </tr>
+            <tr>
+                <td>Highest Guess</td>
+                <td id="max"></td>
+            </tr>
+            <tr>
+                <td>Lowest Guess</td>
+                <td id="min"></td>
+            </tr>
+            <tr>
+                <td>Snowfall</td>
+                <td>0"</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Predictions</h2>
     <table>
         <thead>
             <tr>
-                <th>Gambler</th><th>Bet</th>
+                <th>Gambler</th>
+                <th>Bet</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="bets">
             <tr>
-                <td>Kurt</td><td>12"</td>
+                <td>Kurt</td>
+                <td>12"</td>
             </tr>
             <tr>
-                <td>Justin</td><td>18"</td>
+                <td>Justin</td>
+                <td>18"</td>
             </tr>
             <tr>
-                <td>Kathleen</td><td>14"</td>
+                <td>Kathleen</td>
+                <td>14"</td>
             </tr>
             <tr>
-                <td>Derek</td><td>8"</td>
+                <td>Derek</td>
+                <td>8"</td>
             </tr>
             <tr>
-                <td>Espen</td><td>16"</td>
+                <td>Espen</td>
+                <td>16"</td>
             </tr>
             <tr>
-                <td>Casey</td><td>17"</td>
+                <td>Casey</td>
+                <td>17"</td>
             </tr>
             <tr>
-                <td>Kolten</td><td>13.5"</td>
+                <td>Kolten</td>
+                <td>13.5"</td>
             </tr>
             <tr>
-                <td>Luke</td><td>13"</td>
+                <td>Luke</td>
+                <td>13"</td>
             </tr>
             <tr>
-                <td>Caleb</td><td>10"</td>
+                <td>Caleb</td>
+                <td>10"</td>
             </tr>
             <tr>
-                <td>Ariella</td><td>13"</td>
+                <td>Ariella</td>
+                <td>13"</td>
             </tr>
             <tr>
-                <td>Jeff</td><td>5"</td>
+                <td>Jeff</td>
+                <td>5"</td>
             </tr>
             <tr>
-                <td>Cyrena</td><td>8"</td>
+                <td>Cyrena</td>
+                <td>8"</td>
             </tr>
             <tr>
-                <td>Mark</td><td>15"</td>
+                <td>Mark</td>
+                <td>15"</td>
             </tr>
             <tr>
-                <td>Sharon</td><td>15"</td>
+                <td>Sharon</td>
+                <td>15"</td>
             </tr>
             <tr>
-                <td>Matt</td><td>9"</td>
+                <td>Matt</td>
+                <td>9"</td>
             </tr>
             <tr>
-                <td>Dane</td><td>16.5"</td>
+                <td>Dane</td>
+                <td>16.5"</td>
+            </tr>
+            <tr>
+                <td>Judah</td>
+                <td>9"</td>
+            </tr>
+            <tr>
+                <td>Kira</td>
+                <td>9"</td>
+            </tr>
+            <tr>
+                <td>Paul</td>
+                <td>10"</td>
+            </tr>
+            <tr>
+                <td>Gary</td>
+                <td>8.5"</td>
             </tr>
         </tbody>
     </table>
     <h2>Rules</h2>
     <p>
-        Bets follow "The Price Is Right" rules; closest without going over wins. To discourage rude betting practices (guessing slightly over an existing guess), duplicates are allowed and ties are possible. Bets must be in half inch increments.
+        Bets follow "The Price Is Right" rules; closest without going over wins. To discourage rude betting practices
+        (guessing slightly over an existing guess), duplicates are allowed and ties are possible. Bets must be in half
+        inch increments.
     </p>
     <p>
-        Timespan is "The Dumpening" of March 2024; snowfall event total March 13th through March 17th or whenever the snow stops.
+        Timespan is "The Dumpening" of March 2024; snowfall event total March 13th through March 17th or whenever the
+        snow stops.
     </p>
     <p>
         Snowfall total location will be Westminster / Arvada / Broomfield average.
@@ -131,8 +187,45 @@
     </p>
     <h2>Prize</h2>
     <p>
-        A sense of pride and accomplishment / TBD
+        A sense of pride and accomplishment / TBD? 3D printed dumpening award?
     </p>
+    <script>
+        const betElements = Array.from(document.getElementById('bets').children);
+        const bets = betElements.map(e => {
+            const nameElement = e.children[0];
+            const betElement = e.children[1];
+
+            return {
+                row: e,
+                name: nameElement.textContent,
+                guess: parseFloat(betElement.textContent.replace('"', ''))
+            }
+        });
+
+        const average = bets.map(b => b.guess).reduce((sum, guess) => sum + guess, 0) / bets.length;
+
+        document.getElementById('avg').textContent = `${average.toLocaleString("en-US", { maximumFractionDigits: 1 })}"`;
+
+        const min = bets.reduce((min, next) => {
+            if (next.guess < min.guess) {
+                return next;
+            }
+
+            return min;
+        }, { guess: Number.MAX_VALUE } );
+
+        document.getElementById('min').textContent = `${min.name} - ${min.guess}"`;
+
+        const max = bets.reduce((max, next) => {
+            if (next.guess > max.guess) {
+                return next;
+            }
+
+            return max;
+        }, { guess: Number.MIN_VALUE } );
+
+        document.getElementById('max').textContent = `${max.name} - ${max.guess}"`;
+    </script>
 </body>
 
 </html>
