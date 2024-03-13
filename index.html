@@ -56,7 +56,8 @@
 
 <body>
     <h1>The Dumpening</h1>
-    <em>How much will it dump? 💩</em>
+    <p><em>How much will it dump? 💩</em></p>
+    <p><em>Last Update: 2024-03-12 10:50MDT</em></p>
     <h2>Stats</h2>
     <table>
         <tbody>
@@ -223,7 +224,7 @@
             }
 
             return min;
-        }, { guess: Number.MAX_VALUE } );
+        }, { guess: Number.MAX_VALUE });
 
         document.getElementById('min').textContent = `${min.name} - ${min.guess}"`;
 
@@ -233,7 +234,7 @@
             }
 
             return max;
-        }, { guess: Number.MIN_VALUE } );
+        }, { guess: Number.MIN_VALUE });
 
         document.getElementById('max').textContent = `${max.name} - ${max.guess}"`;
 
@@ -261,7 +262,7 @@
             }
 
             return closest;
-        }, { guess: Number.MIN_VALUE } );
+        }, { guess: Number.MIN_VALUE });
 
         if (ties.length) {
             document.getElementById('closest').innerHTML = ties.reduce((t, bet) => {
