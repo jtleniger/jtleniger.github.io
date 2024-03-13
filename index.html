@@ -201,7 +201,8 @@
         snow stops.
     </p>
     <p>
-        Snowfall total location will be Westminster / Arvada / Broomfield average.
+        Snowfall total location will be Westminster / Arvada / Broomfield average, if the <a href="https://forecast.weather.gov/product.php?site=bou&product=LSR&issuedby=BOU" target="_blank">National Weather Service</a> provides snow totals for these locations. I don't really know.
+        Otherwise, the snow total will be based off of Justin's Snow Stake, which does not exist at this time.
     </p>
     <p>
         Bets close when Justin notices the snow has started.
@@ -224,11 +225,11 @@
         });
 
         const average = bets.map(b => b.guess).reduce((sum, guess) => sum + guess, 0) / bets.length;
-        const variance = bets.map(b => b.guess).reduce((sum, guess) => Math.pow(guess - average, 2), 0) / bets.length;
+        const variance = bets.map(b => b.guess).reduce((sum, guess) => (Math.pow(guess - average, 2) + sum), 0) / bets.length;
         const stddev = Math.sqrt(variance);
 
-        document.getElementById('avg').textContent = `${average.toLocaleString("en-US", { maximumFractionDigits: 1 })}"`;
-        document.getElementById('stddev').textContent = `${stddev.toLocaleString("en-US", { maximumFractionDigits: 1 })}"`;
+        document.getElementById('avg').textContent = `${average.toLocaleString("en-US", { maximumFractionDigits: 2 })}"`;
+        document.getElementById('stddev').textContent = `${stddev.toLocaleString("en-US", { maximumFractionDigits: 2 })}"`;
 
         const min = bets.reduce((min, next) => {
             if (next.guess < min.guess) {
