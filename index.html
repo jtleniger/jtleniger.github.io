@@ -65,6 +65,10 @@
                 <td id="avg"></td>
             </tr>
             <tr>
+                <td>Standard Deviation</td>
+                <td id="stddev"></td>
+            </tr>
+            <tr>
                 <td>Highest Guess</td>
                 <td id="max"></td>
             </tr>
@@ -74,7 +78,11 @@
             </tr>
             <tr>
                 <td>Snowfall</td>
-                <td>0"</td>
+                <td id="total">0"</td>
+            </tr>
+            <tr>
+                <td>Current Winner(s)</td>
+                <td id="closest"></td>
             </tr>
         </tbody>
     </table>
@@ -203,8 +211,11 @@
         });
 
         const average = bets.map(b => b.guess).reduce((sum, guess) => sum + guess, 0) / bets.length;
+        const variance = bets.map(b => b.guess).reduce((sum, guess) => Math.pow(guess - average, 2), 0) / bets.length;
+        const stddev = Math.sqrt(variance);
 
         document.getElementById('avg').textContent = `${average.toLocaleString("en-US", { maximumFractionDigits: 1 })}"`;
+        document.getElementById('stddev').textContent = `${stddev.toLocaleString("en-US", { maximumFractionDigits: 1 })}"`;
 
         const min = bets.reduce((min, next) => {
             if (next.guess < min.guess) {
@@ -225,6 +236,42 @@
         }, { guess: Number.MIN_VALUE } );
 
         document.getElementById('max').textContent = `${max.name} - ${max.guess}"`;
+
+        const total = parseFloat(document.getElementById('total').textContent.replace('"', ''));
+
+        let ties = [];
+
+        const closest = bets.reduce((closest, next) => {
+            const nextDiff = total - next.guess;
+
+            if (nextDiff < 0) {
+                return closest;
+            }
+
+            const closestDiff = total - closest.guess;
+
+            if (nextDiff < closestDiff) {
+                ties = [next];
+                return next;
+            }
+
+            if (nextDiff === closestDiff) {
+                ties.push(next);
+                return next;
+            }
+
+            return closest;
+        }, { guess: Number.MIN_VALUE } );
+
+        if (ties.length) {
+            document.getElementById('closest').innerHTML = ties.reduce((t, bet) => {
+                return t + `${bet.name} - ${bet.guess}"<br/>`
+            }, '');
+        } else {
+            document.getElementById('closest').textContent = 'name' in closest
+                ? `${closest.name} - ${closest.guess}"`
+                : 'None';
+        }
     </script>
 </body>
 
