@@ -1,3 +1,4 @@
+import fs from 'fs';
 import tinyjam from 'tinyjam';
 
 export function buildHTML() {
@@ -7,4 +8,6 @@ export function buildHTML() {
         smartypants: false, // Markdown: convert quotes, dashes and ellipses to typographic equivalents
         highlight: null     // a code highlighting function: (code, lang) => html
     });
+
+    fs.cpSync('site/.well-known', 'dist/.well-known', { recursive: true });
 }
