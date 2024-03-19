@@ -1,0 +1,16 @@
+$page-width-lg: 728px;
+$page-width-sm: 100%;
+$screen-sm: 768px;
+
+@mixin page-width() {
+    width: $page-width-sm;
+
+    @media (min-width: $screen-sm) {
+        width: $page-width-lg;
+    }
+}
+
+main {
+    @include page-width();
+    flex: 1;
+}

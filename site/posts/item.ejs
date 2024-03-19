@@ -1,0 +1,14 @@
+<%- include('../_header.ejs') -%>
+
+<div class="title">
+  <h1><%- title %></h1>
+  <span><%- description %></span>
+</div>
+<% if (hero) { %>
+  <div class="hero">
+    <img src="/images/<%= hero %>" alt="<%= title %>">
+  </div>
+<% } %>
+<%- body %>
+
+<%- include('../_footer.ejs') -%>
