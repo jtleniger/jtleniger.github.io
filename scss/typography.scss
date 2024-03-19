@@ -1,0 +1,72 @@
+$font-size: 16px;
+$line-height: 1.6;
+$font: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    box-sizing: border-box;
+    font-family: $font;
+    font-size: $font-size;
+    line-height: $line-height;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: $font;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration-thickness: 1px;
+  color: $primary-400;
+  outline: none;
+  transition: color 50ms ease;
+  font-family: $font;
+  font-weight: 900;
+
+  &:hover {
+    color: $primary-100;
+  }
+}
+
+blockquote {
+  // background-color: $grey-900;
+  padding: 0.1em 1em;
+  border-radius: 0.5em;
+  margin: 1em 0;
+}
+
+p {
+  margin-top: 0.5rem;
+}
+
+em {
+  color: $grey-300;
+}
+
+li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+blockquote {
+  font-style: italic;
+  color: $grey-300;
+}

@@ -1,0 +1,40 @@
+form.contact {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @media (min-width: $screen-sm) {
+            width: 50%;
+
+            &:first-of-type {
+                width: calc(50% - 1rem);
+                margin-right: 1rem;
+            }
+        }
+    }
+
+    textarea, input {
+        font-size: 16px;
+        background-color: $grey-800;
+        outline: none;
+        color: $grey-100;
+        border: 1px solid $grey-700;
+        transition: border 250ms ease;
+        padding: 0.5rem;
+        margin: 1rem 0;
+
+        &:focus {
+            border: 1px solid $grey-500;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        resize: none;
+    }
+}

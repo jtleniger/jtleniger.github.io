@@ -1,0 +1,18 @@
+<%- include('_header.ejs') -%>
+<h2>Hello! I'm Justin</h2>
+<p>
+  I'm an experienced software developer specializing in backend web development since 2015.
+  Colorado is my home, a great place to be for my love of the outdoors, so I try to get up in the mountains for hiking, camping, and snowboarding as often as possible.
+  My interests often blend, leading me to build things that bring together software, hardware, and pastimes like meteorology and photography.
+  When I'm not at a computer, I love homebrewing, photography, and too many other hobbies to list.
+</p>
+<h2>Recent Posts</h2>
+<% const count = 5 %>
+
+<% const latest = Object.entries(posts).sort((a, b) => b[1].date - a[1].date).slice(0, count) %>
+
+<% for (const [key, post] of latest) { %>
+  <%- include('_postLink.ejs') -%>
+<% } %>
+
+<%- include('_footer.ejs') -%>

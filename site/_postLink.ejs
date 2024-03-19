@@ -1,0 +1,11 @@
+<div class="post-link">
+    <a class="title" href="<%=`/posts/${key}.html`%>"><%= post.title %></a>
+
+    <% if (post.description) { %>
+    <p class="subtitle"><%= post.description %></p>
+    <% } %>
+
+    <% if (post.date) { %>
+    <em class="date"><%= new Date(post.date).toLocaleDateString() %></em>
+    <% } %>
+</div>

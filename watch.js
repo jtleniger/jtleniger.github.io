@@ -16,7 +16,7 @@ const build = debounce(() => {
   console.time("took")
 
   try {
-    execSync("pnpm build", { stdio: 'inherit' })
+    execSync("npm run build", { stdio: 'inherit' })
   } catch (error) {
     console.error(error.message)
   }

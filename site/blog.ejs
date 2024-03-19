@@ -1,0 +1,9 @@
+<%- include('_header.ejs') -%>
+<h2>Posts</h2>
+<% const sorted = Object.entries(posts).sort((a, b) => b[1].date - a[1].date) %>
+
+<% for (const [key, post] of sorted) { %>
+  <%- include('_postLink.ejs') -%>
+<% } %>
+
+<%- include('_footer.ejs') -%>
